@@ -9,7 +9,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": ""
   },
   "dependencies": {
     "pinia": "^2.0.28",
@@ -39,5 +40,18 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "commitlint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lxy93/element-md-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lxy93/element-md-ts/issues"
+  },
+  "homepage": "https://github.com/lxy93/element-md-ts#readme"
 }
