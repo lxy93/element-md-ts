@@ -3,11 +3,32 @@ import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: "/",
-    //   name: "home",
-    //   component: HomeView,
-    // },
+    {
+      path:'/',
+      redirect:'/home'
+    },
+    {
+      path: "/tab",
+      name: "tab",
+      component: () => import("../views/home/index.vue"),
+      children:[
+        {
+          path: "/home",
+          name: "home",
+          component: () => import("../views/home/home.vue"),
+        },
+        {
+          path: "/order",
+          name: "order",
+          component: () => import("../views/home/order.vue"),
+        },
+        {
+          path: "/self",
+          name: "self",
+          component: () => import("../views/home/self.vue"),
+        }
+      ]
+    },
     // {
     //   path: "/about",
     //   name: "about",
