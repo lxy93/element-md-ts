@@ -5,7 +5,6 @@ import App from "./App.vue";
 import router from "./router";
 import 'amfe-flexible/index.js'//自适应
 import './css/base.less'
-// import "./assets/main.css";
 import "./vant/index";
 
 const app = createApp(App);
