@@ -1,16 +1,13 @@
 <template>
-    <div>首页11</div>
+    <div class="f28">首页11</div>
 </template>
 
 <script lang='ts' setup>
 import { getTestData } from '@/api/test'
 import {  } from 'vue'
-const get_test_data = ()=> {
-    getTestData()
-}
-get_test_data()
+getTestData()
 </script>
 
-<style lang='' scoped>
+<style lang='less' scoped>
 
 </style>
