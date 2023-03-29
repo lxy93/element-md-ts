@@ -1,0 +1,1 @@
+export { default as OpSearch } from './OpSearch.vue'
