@@ -7,10 +7,13 @@
             <img src="@/assets/images/home/comments.png" class="comments">
         </div>
         <OpSearch 
-            v-model:modelVal="modelVal" 
+            v-model:modelVal="searchVal" 
             shape="round" 
             background="linear-gradient(to right,rgba(53,200,250),rgba(31,175,243))" 
             placeholder="世界茶饮 35减2"
+            @search="onSearch"
+            @cancel="onCancel"
+            @clear="onClear"
             @inputClick="emits('searchClick')"
         >
             <template #right-icon>
@@ -32,7 +35,16 @@ export interface Iprops{
     recomments:ISearchRecomment[]
 }
 defineProps<Iprops>()
-const modelVal = ref<number | string>('')
+const searchVal = ref<number | string>('')
+const onSearch = (v?:number | string)=> {
+    console.log('-----onSearch',v)
+}
+const onCancel = ()=> {
+    console.log('----onCancel')
+}
+const onClear = ()=> {
+    console.log('-----onClear')
+}
 interface IEmits{
     (e:'searchClick'):void
 }

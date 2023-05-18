@@ -8,24 +8,24 @@ const router = createRouter({
       redirect:'/home'
     },
     {
-      path: "/tab",
-      name: "tab",
-      component: () => import("../views/home/index.vue"),
+      path: "/homeTab",
+      name: "homeTab",
+      component: () => import("../views/homeTab/index.vue"),
       children:[
         {
           path: "/home",
           name: "home",
-          component: () => import("../views/home/home.vue"),
+          component: () => import("../views/homeTab/home.vue"),
         },
         {
           path: "/order",
           name: "order",
-          component: () => import("../views/home/order.vue"),
+          component: () => import("../views/homeTab/order.vue"),
         },
         {
           path: "/self",
           name: "self",
-          component: () => import("../views/home/self.vue"),
+          component: () => import("../views/homeTab/self.vue"),
         }
       ]
     },
