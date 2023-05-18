@@ -14,12 +14,13 @@
               :placeholder="placeholder"
               @click="emits('inputClick')"
               @keypress="onKeypress"
-              @input="(e)=>emits('update:modelVal',(e.target as HTMLInputElement).value)"
+              @input="modelValInput"
             />
-            <div v-if="$slots['name']" class="op-field__right-icon">
+            <!-- v-if="!modelVal" -->
+            <div v-if="$slots['right-icon']" class="op-field__right-icon">
               <slot name="right-icon"></slot>
             </div>
-            <VanIcon v-if="modelVal" name="clear" class="op-field__clear" />
+            <VanIcon @click="onClear" v-else-if="modelVal" name="clear" class="op-field__clear" />
           </div>
         </div>
       </div>
@@ -33,7 +34,6 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
 interface IProps {
     modelVal?:string | number
     background?:string,
@@ -51,21 +51,21 @@ interface IEmits {
   (e:'update:modelVal',v?:number | string):void
 }
 const emits = defineEmits<IEmits>()
-const searchVal = ref('')
 
 const onKeypress = (e:KeyboardEvent)=> {
-  if(e.code === '13'){
+  if(e.keyCode === 13){
     e.preventDefault()
     emits('search',props.modelVal)
   }
 }
 
+const modelValInput = (e:Event)=> {
+  emits('update:modelVal',(e.target as HTMLInputElement).value)
+}
 const onClear = ()=> {
   emits('update:modelVal','')
   emits('clear')
 }
-
-
 </script>
 
 <style lang='less'>
@@ -98,7 +98,7 @@ const onClear = ()=> {
     background: var(--op-search-content-background);
     border-radius: var(--van-border-radius-sm);
     &--round {
-      border-radius: var(--van-radius-max);
+      border-radius: var(--van-border-radius-max);
     }
   }
 

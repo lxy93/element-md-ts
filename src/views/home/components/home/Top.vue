@@ -6,12 +6,13 @@
             <img src="@/assets/images/home/shopcart.png" class="shopcart">
             <img src="@/assets/images/home/comments.png" class="comments">
         </div>
-        <!-- <van-search v-model="value" shape="round" placeholder="世界茶饮 35减2" background="linear-gradient(to right,rgba(53,200,250),rgba(31,175,243))">
-            <template #right-icon>
-                <div>搜索</div>
-            </template>
-        </van-search> -->
-        <OpSearch :modelVal="modelVal" shape="round" background="linear-gradient(to right,rgba(53,200,250),rgba(31,175,243))" placeholder="世界茶饮 35减2">
+        <OpSearch 
+            v-model:modelVal="modelVal" 
+            shape="round" 
+            background="linear-gradient(to right,rgba(53,200,250),rgba(31,175,243))" 
+            placeholder="世界茶饮 35减2"
+            @inputClick="emits('searchClick')"
+        >
             <template #right-icon>
                 <div>搜索</div>
             </template>
@@ -31,8 +32,11 @@ export interface Iprops{
     recomments:ISearchRecomment[]
 }
 defineProps<Iprops>()
-const modelVal = ref<number|string>('')
-
+const modelVal = ref<number | string>('')
+interface IEmits{
+    (e:'searchClick'):void
+}
+const emits = defineEmits<IEmits>()
 </script>
 
 <style lang='less' scoped>

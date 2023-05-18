@@ -1,13 +1,16 @@
 <template>
     <div>
-        <Top :recomments="recomments" />
+        <Transition name="fade">
+            <SearchView v-if="isSearchViewShow" @cancel="toggleSearchView" />
+        </Transition>
+        <Top :recomments="recomments" @searchClick="toggleSearchView"/>
     </div>
 </template>
 
 <script lang='ts' setup>
-import { Top } from './components/home/index'
+import { Top, SearchView } from './components/home/index'
 import {  } from 'vue'
-
+import { useToggle } from '@/hooks/useToggle'
 const recomments = [
     {
         value:1,
@@ -26,8 +29,15 @@ const recomments = [
         label:'KFC'
     },
 ]
+const [isSearchViewShow,toggleSearchView] = useToggle(false)
+
 </script>
 
 <style lang='less' scoped>
-
+.fade-enter-active,.fade-leave-active{
+    transition: opacity .5s ease;
+}
+.fade-enter-from,.fade-leave-to{
+    opacity: 0;
+}
 </style>
