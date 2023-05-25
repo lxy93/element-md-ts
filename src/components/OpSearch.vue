@@ -27,7 +27,7 @@
     </div>
     <div v-if="showAction" class="op-search__action">
       <slot name="action">
-        <div>取消</div>
+        <div @click="emits('cancel')">取消</div>
       </slot>
     </div>
   </div>
