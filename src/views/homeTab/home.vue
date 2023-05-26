@@ -4,13 +4,13 @@
             <SearchView v-if="isSearchViewShow" @cancel="toggleSearchView" />
         </Transition>
         <Top :recomments="recomments" @searchClick="toggleSearchView"/>
-        {{ data }}
-        {{ pedding }}
+        <OpLoading :loading="pedding" type="skeleton"></OpLoading>
     </div>
 </template>
 
 <script lang='ts' setup>
 import { Top, SearchView } from './components/home/index'
+import { OpLoading } from '@/components'
 import { useToggle } from '@/hooks/useToggle'
 import { useAsync } from '@/hooks/useAsync'
 import { getHomeData } from '@/api/home'
