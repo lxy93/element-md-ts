@@ -13,14 +13,12 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute()
 const router = useRouter()
 const active = ref(route.name as string)
-console.log(active)
 watch(active,(value)=>{
     router.push({
         name:value
     })
 })
 
-console.log(route,'iii');
 
 </script>
 

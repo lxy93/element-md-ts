@@ -4,18 +4,23 @@
             <SearchView v-if="isSearchViewShow" @cancel="toggleSearchView" />
         </Transition>
         <Top :recomments="recomments" @searchClick="toggleSearchView"/>
-        <OpLoading :loading="pedding" type="skeleton"></OpLoading>
+        <template v-if="homeData">
+        <!-- <OpLoading :loading="pedding" type="loading"></OpLoading> -->
+            <Transformer :data="homeData.transformer" />
+            <ScrollBar :data="homeData.scrollBarInfoList" />
+        </template>
+        
     </div>
 </template>
 
 <script lang='ts' setup>
-import { Top, SearchView } from './components/home/index'
+import { Top, SearchView, ScrollBar, Transformer } from './components/home/index'
 import { OpLoading } from '@/components'
 import { useToggle } from '@/hooks/useToggle'
 import { useAsync } from '@/hooks/useAsync'
 import { getHomeData } from '@/api/home'
-import { onMounted } from 'vue'
-import type { IHomeInfo } from './types'
+import { onMounted, ref } from 'vue'
+import type { IHomeData, IScrollBarInfo } from './types'
 const recomments = [
     {
         value:1,
@@ -35,14 +40,16 @@ const recomments = [
     },
 ]
 const [isSearchViewShow,toggleSearchView] = useToggle(false)
+// const { data, pedding } = useAsync(getHomeData,{} as IHomeData)
 
-const { data, pedding } = useAsync(getHomeData,{} as IHomeInfo)
-// const getHomeDataFun = async()=> {
-//     await getHomeData()
-// }
-// onMounted(()=> {
-//     getHomeDataFun()
-// })
+let homeData = ref()
+const getHomeDataFun = async()=> {
+    const { data } = await getHomeData()
+    homeData.value = data
+}
+onMounted(()=> {
+    getHomeDataFun()
+})
 </script>
 
 <style lang='less' scoped>

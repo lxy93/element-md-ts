@@ -12,12 +12,14 @@ export interface ISearchResult {
     label: string;
     resultCount: number;
 }
-
+export interface IHomeData {
+    data: IHomeInfo
+}
 export interface IHomeInfo {
     banner: IBanner
     serachReComments: ISearchRecomment[]
     transformer: ITransformer[]
-    IScrollBarInfoList: IScrollBarInfo[]
+    scrollBarInfoList: IScrollBarInfo[]
     countdown: ICountdown
     activities: string[]
 }

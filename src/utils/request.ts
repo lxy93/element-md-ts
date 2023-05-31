@@ -16,7 +16,6 @@ server.interceptors.request.use((config) => {
 
 
 server.interceptors.response.use((response:AxiosResponse<any>) => {
-    console.log(response.data,'oooo')
     let {status,data} = response
     if(status !== 200){
         Toast({
@@ -27,6 +26,7 @@ server.interceptors.response.use((response:AxiosResponse<any>) => {
             //   window.App.toAppLogin();
             }
         })
+        
         return Promise.reject(data) 
     }
     return Promise.resolve(data);

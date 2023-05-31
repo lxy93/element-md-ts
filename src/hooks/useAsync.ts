@@ -9,6 +9,7 @@ export function useAsync<T>(asyncFn: ()=> Promise<T>, initValue: T, immediate = 
         error.value = null
         return asyncFn().then(res=> {
             data.value = res as UnwrapRef<T>
+            console.log(data.value,'mmm')
             pedding.value = false
         })
         .catch(err=> {

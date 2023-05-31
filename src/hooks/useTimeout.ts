@@ -7,6 +7,8 @@ export function useTimeout(fn: ()=> void, delay: number) {
     let clear = ()=> {
         clearTimeout(timer)
     }
-    onUnmounted(clear)
+    onUnmounted(()=> {
+        clear()
+    })
     return clear
 }

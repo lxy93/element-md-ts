@@ -7,6 +7,8 @@ export function useInterval(fn: ()=> void, delay: number) {
     const clear = ()=> {
         clearInterval(timer)
     }
-    onUnmounted(clear)
+    onUnmounted(()=>{
+        clear()
+    })
     return clear
 }

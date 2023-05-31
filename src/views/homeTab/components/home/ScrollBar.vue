@@ -1,10 +1,14 @@
 <template>
     <div class="home-scroll-bar">
-        <div class="home-scroll-bar-swiper">
+        <div class="home-scroll-bar__swipe">
             <div ref="containerRef">
-                <!-- <div class="swiper-item" v-for="v in props.data" :key="v.type">
-                    {{ v.type }}
-                </div> -->
+                <div class="swipe-item" v-for="v in props.data" :key="v.type">
+                    <div  class="scroll-bar__info" :class="`scroll-bar__info__${v.type}`">
+                        <span class="info-badge">{{ v.badge }}</span>
+                        <span class="info-detail" v-html="v.detail"></span>
+                        <span class="info-btn op-thin-border">{{ v.btn }}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -25,31 +29,42 @@ interface IProps {
 const props = withDefaults(defineProps<IProps>(),{
     intervalTime: 3000,
     transitionTime: 1000,
-    height: 40
+    height: 40,
+    data: ()=> []
 })
+const heightPx = `${props.height}px`
 
 const containerRef = ref()
+
+/**
+ * @method 初始化跑马灯
+ */
+const initSwipeFun = ()=> {
+  
+  const container = containerRef.value
+  const count = container.children.length
+  const firstSwiperItem = container.children[0]
+  container.style.height = `${count * props.height}px`
+  let index = 0
+  useInterval(()=> {
+      index++
+      if(index >= count){
+          firstSwiperItem.style.transform = `translateY(${index * props.height}px)`
+          const clearTimeOut = useTimeout(()=> {
+              firstSwiperItem.style.transform = ''
+              container.style.transform = ''
+              container.style.transition = ''
+              clearTimeOut()
+          },props.transitionTime)
+      }
+      container.style.transform = `translateY(${ -index * props.height }px)`
+      container.style.transition = `all linear ${ props.transitionTime }ms`
+      index = index % count
+  },props.intervalTime)
+  
+}
 onMounted(()=> {
-    const container = containerRef.value
-    const count = container.length
-    const firstSwiperItem = container.children[0]
-    container.style.height = `${count * props.height}px`
-    let index = 0
-    useInterval(()=> {
-        index++
-        if(index === count){
-            firstSwiperItem.style.transform = `translateY(${index * props.height}px)`
-            const clearTimeOut = useTimeout(()=> {
-                firstSwiperItem.style.transform = ''
-                container.style.transform = ''
-                container.style.transition = ''
-                clearTimeOut()
-            },props.transitionTime)
-        }
-        container.style.transform = `translateY(${ -index * props.height }px)`
-        container.style.transition = `all linear ${ props.transitionTime }ms`
-        index = index % count
-    },props.intervalTime)
+  initSwipeFun() 
 })
 </script>
 
